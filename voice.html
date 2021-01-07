@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>昔の文章を読みやすくするサイト</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="design.css">
+</head>
+
+<body>
+
+<div id="page">
+
+<h1>声を付ける</h1>
+
+<form name="form">
+<textarea id="text" rows="10" style="font-size:100%; width:100%">文章を入れてください</textarea>
+<button id="speak-btn">再生</button>
+<button id="cancel-btn">停止</button>
+<button id="pause-btn">一時停止</button>
+<button id="resume-btn">再開</button>
+<select id="voice-select"></select>
+<br>
+速度：<input id="rate" type="range" min="0" max="20" step="1">
+<br>
+音の高さ:<input id="pitch" type="range" min="0" max="20" step="1">
+</form>
+
+<!-- scriptはjavascriptなどの外部のものをhtmlに組み込むときに用いる -->
+<script>
+  //querySelector()は、指定されたセレクター、セレクターグループに一致する文書内の最初のelementを返す
+  //constは再入力不可！varとletはok
+
+  var synth = window.speechSynthesis;
+
+
+  const text = document.getElementById('text');
+  const speakBtn  = document.getElementById('speak-btn');
+  const cancelBtn = document.getElementById('cancel-btn');
+  const pauseBtn  = document.getElementById('pause-btn');
+  const resumeBtn = document.getElementById('resume-btn');
+  const voiceSelect = document.getElementById('voice-select');
+
+
+
+  /*
+  cancelBtn.addEventListener('click', function() {
+    // 再生停止 (発言キューをクリアして止まる)
+    speechSynthesis.cancel();
+  },false);
+  pauseBtn.addEventListener('click', function() {
+    // 一時停止 (発言キューを保持して止まる)
+    speechSynthesis.pause();
+  },false);
+  resumeBtn.addEventListener('click', function() {
+    // 再生再開 (一時停止を解除)
+    speechSynthesis.resume();
+  },false);
+  */
+
+  //書き換えたイベントハンドラー
+  cancelBtn.onclick = function(){
+    synth.cancel();
+  }
+  pauseBtn.onclick = function(){
+    synth.cancel();
+  }
+  resumeBtn.onclick = function(){
+    synth.resume();
+  }
+
+
+  // selectタグの中身を声の名前が入ったoptionタグで埋める
+   function appendVoices() {
+     //使える声の配列を取得
+     // 配列の中身は SpeechSynthesisVoice オブジェクト
+     var voices = synth.getVoices();
+     //voiceSelect.innerHTML = ''
+     voices.forEach(voice => { //　アロー関数 (ES6):javascriptの新しい構文の一つ
+       // 日本語と英語以外の声は選択肢に追加しない。
+       if(!voice.lang.match('ja')) return
+       const option = document.createElement('option');
+       option.value = voice.name;
+       option.text  = `${voice.name} (${voice.lang})`;//　テンプレートリテラル (ES6)
+       option.setAttribute('selected', voice.default);
+       voiceSelect.appendChild(option);
+     });
+   }
+
+   appendVoices();
+
+   // Chrome は非同期に(一個ずつ)声を読み込むため必要。
+
+   synth.onvoiceschanged = e => {
+     appendVoices();
+     //console.log("voicechanged");
+   }
+
+   speakBtn.onclick = function() {
+     //alert("speak");
+     //発言を作成
+     //var uttr = new SpeechSynthesisUtterance(text.value);//value = 送る入力値
+
+     //そのまま直接入力ver（２つ目の案）
+     //const textList = form.text.value.split('。');
+
+     /*
+     uttr.text = form.text.value.split('。');
+     var textList = uttr.text;
+
+     //uttr.text = form.text.value;
+     //speechSynthesis.speak(uttr);
+     textList.forEach(function(word){
+       var uttr = new SpeechSynthesisUtterance();
+       uttr.rate = form.rate.value / 10;//音の速さ
+       uttr.pitch = form.pitch.value / 10 ;//音の高さ
+       uttr.text = word;
+       speechSynthesis.speak(uttr);
+     });
+
+     */
+
+     var uttr = new SpeechSynthesisUtterance();
+     uttr.rate = form.rate.value / 10;//音の速さ
+     uttr.pitch = form.pitch.value / 10 ;//音の高さ
+     uttr.text = form.text.value;
+     //utter.voice = speechSynthesis.getVoices()[0];
+
+     //ここが原因で音が止まる。
+     uttr.voice = synth.getVoices().filter(voice => voice.name === voiceSelect.value)[0];
+
+     //console.log(speechSynthesis.getVoices().filter(voice => voice.name === voiceSelect.value)[0]);
+     console.log(uttr.voice);
+     alert("hello");
+
+     synth.speak(uttr);
+
+     //alert(text.value);
+
+     //１行ずつ読みこむ部分
+     //splitで区切る
+     /*
+     const textList = text.value.split('。');
+     //alert(textList);
+     //foreachでfor分よりも簡単に処理できる繰り返し
+     textList.forEach(function(word){
+       // 発言を再生
+       const uttr = new SpeechSynthesisUtterance(word);
+       alert(word);
+       uttr.rate = form.rate.value / 10;//音の速さ
+       uttr.pitch = form.pitch.value / 10 ;//音の高さ
+       // 声を指定
+
+       //uttr.text = this.text.value;
+       //uttr.text = word;
+       //alert(uttr.text);
+       uttr.voice = speechSynthesis
+         .getVoices()
+         .filter(voice => voice.name === voiceSelect.value)[0];
+         //uttr.text = this.text.value;
+       speechSynthesis.speak(uttr);
+
+     });
+     */
+   }
+</script>
+
+<nav id="menu">
+<ul>
+<li><a href="site.html">ホーム</a><li>
+<li><a href="file.html">文章変換</a></li>
+</ul>
+</nav>
+
+</div>
+</body>
+</html>

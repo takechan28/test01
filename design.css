@@ -1,0 +1,201 @@
+@charset "utf-8";
+
+/*全体の設定*/
+body {
+	margin: 0px;
+	padding: 0px;
+	-webkit-text-size-adjust: none;
+	color: #666;	/*全体の文字色*/
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	/*フォント種類*/
+	font-size: 16px;	/*文字サイズ*/
+	line-height: 2;		/*行間*/
+	background: #fff;	/*背景色*/
+	text-align: center;	/*内容を中央よせ*/
+}
+
+/*h1のタイトル設定*/
+h1 {
+  border-bottom: solid 3px #cce4ff;
+  position: relative;
+}
+h1:after {
+  position: absolute;
+  content: " ";
+  display: block;
+  border-bottom: solid 3px #5472cd;
+  bottom: -3px;
+  width: 20%;
+}
+h1:first-letter {
+  font-size: 2em;
+  color: #7172ac;
+}
+
+h2,h3,h4,h5,p,ul,ol,li,dl,dt,dd,form,figure,form,select{margin: 0px;padding: 0px;font-size: 100%;font-weight: normal;}
+ul {list-style-type: none;}
+ol {padding-left: 40px;padding-bottom: 15px;}
+img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
+iframe {width: 100%;}
+
+/*リンク（全般）設定
+---------------------------------------------------------------------------*/
+a {
+	color: #666;	/*リンクテキストの色*/
+	transition: 0.3s;	/*マウスオン時の移り変わるまでの時間設定。0.3秒。*/
+}
+a:hover {
+	color: #d08047;	/*マウスオン時の文字色*/
+}
+
+#page {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 3%;
+}
+
+header {
+	text-align: center;	/*内容を中央よせ*/
+}
+
+#mainimg img {
+	width: 500px;
+	height: 150px;
+	border-radius: 10px;	/*角を丸くする指定。この１行を削除すれば角丸がなくなります。*/
+	margin-bottom: 40px;	/*下に空けるスペース*/
+}
+
+#mainimg {
+  position: relative;
+  }
+
+#mainimg p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+	font-weight: bold;
+  -ms-transform: translate(-50%,-50%);
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  margin:0;
+  padding:0;
+  }
+
+
+#menu {
+	text-align: center;		/*文字をセンタリング*/
+	font-size: 18px;		/*文字サイズ*/
+	margin-bottom: 40px;	/*下に空けるスペース*/
+}
+/*メニュー１個あたりの設定*/
+#menu li {
+	display: inline;	/*横並びにする設定*/
+}
+#menu li a {
+	text-decoration: none;
+	padding: 15px 30px;	/*各メニュー内の余白。上下に15px、左右に30pxあけるという意味。*/
+}
+/*マウスオン時の設定*/
+#menu li a:hover {
+	color: #d08047;	/*文字色*/
+	border-bottom: 4px solid #d08047;	/*下線の幅、線種、色*/
+}
+
+/*コンテンツ（見出しバーや文字などが入っているブロック）
+---------------------------------------------------------------------------*/
+/*コンテンツのh2タグの設定*/
+#contents h2 {
+	clear: both;
+	margin-bottom: 20px;
+	color: #fff;		/*文字色*/
+	padding: 10px 20px;	/*上下、左右への余白*/
+	background: #5472cd;	/*背景色*/
+	border-radius: 10px;	/*角を丸くする指定。この１行を削除すれば角丸がなくなります。*/
+}
+
+/*コンテンツのp(段落)タグ設定*/
+#contents p {
+	padding: 0px 20px 20px;	/*上、左右、下への余白*/
+}
+/*他。微調整。*/
+#contents p + p {
+	margin-top: -5px;
+}
+#contents h2 + p,
+#contents h3 + p {
+	margin-top: -10px;
+}
+#contents section + section {
+	margin-top: 30px;
+}
+
+
+/*画面幅580px以下の設定
+-----------------------------------------------------*/
+@media screen and (max-width:580px){
+
+/*全体の設定
+---------------------------------------*/
+body {
+	font-size: 12px;	/*文字サイズ*/
+	line-height: 1.5;	/*行間*/
+}
+
+/*メニュー
+------------------------------------------*/
+/*メニュー１個あたりの設定*/
+#menubar li {
+	display: block;	/*縦並びにする設定*/
+	margin-bottom: 10px;
+}
+#menubar li a {
+	text-decoration: none;
+	padding: 8px 30px;	/*各メニュー内の余白。*/
+}
+
+/*各ブロックごとの設定*/
+.list {
+	padding: 10px;	/*ボックス内の余白*/
+}
+
+/*その他
+---------------------------------------------------------------------------*/
+.ws,.wl {width: 94%;}
+}
+
+/*ホーム下の部分の解説*/
+.contents {
+	height: 400px;
+	overflow: hidden;
+}
+.left {
+	float: left;
+	height: 400px;
+	width: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.right {
+	float: right;
+	width: 50%;
+	height: 400px;
+}
+/*「大正明治」で検索かけた*/
+#photo01 {
+	background-image: url(https://mag.japaaan.com/wp-content/uploads/2019/06/fshdfsa-660x350.jpg);
+}
+#photo02 {
+	background-image: url(https://mag.japaaan.com/wp-content/uploads/2016/11/nypl.digitalcollections.c260bdb3-9b8c-4552-e040-e00a18066d81.001.w.jpg);
+}
+.text {
+	background-color: #fffaf0;
+}
+.contents p,h3{
+	margin: 30px 120px 0 21px;
+}
+h3{
+	font-size: 1.3rem;
+	letter-spacing:　0.2em
+}
+#div02{
+	margin-bottom: 100px;
+}
